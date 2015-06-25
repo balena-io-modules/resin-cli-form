@@ -1,0 +1,42 @@
+{
+  "name": "resin-cli-form",
+  "version": "1.0.0",
+  "description": "Resin.io CLI form interpreter",
+  "main": "build/form.js",
+  "homepage": "https://github.com/resin-io/resin-cli-form",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/resin-io/resin-cli-form.git"
+  },
+  "keywords": [
+    "resin",
+    "form",
+    "cli"
+  ],
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "gulp test",
+    "prepublish": "gulp build",
+    "readme": "jsdoc2md --template doc/README.hbs build/form.js > README.md"
+  },
+  "author": "Juan Cruz Viotti <juanchiviotti@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "coffee-script": "~1.8.0",
+    "gulp": "~3.8.10",
+    "gulp-coffee": "~2.2.0",
+    "gulp-coffeelint": "~0.4.0",
+    "gulp-mocha": "~2.0.0",
+    "gulp-util": "~3.0.1",
+    "jsdoc-to-markdown": "^1.1.1",
+    "mocha": "~2.0.1",
+    "mochainon": "^1.0.0"
+  },
+  "dependencies": {
+    "bluebird": "^2.9.30",
+    "inquirer": "^0.8.5",
+    "lodash": "^3.9.3"
+  }
+}
