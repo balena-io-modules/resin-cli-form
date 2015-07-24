@@ -3,6 +3,111 @@ utils = require('../lib/utils')
 
 describe 'Utils:', ->
 
+	describe '.flatten()', ->
+
+		describe 'given a form group', ->
+
+			beforeEach ->
+				@form = [
+					{
+						isGroup: true
+						name: 'network'
+						message: 'Network'
+						isCollapsible: true
+						collapsed: false
+						options: [
+							message: 'Network Connection'
+							name: 'network'
+							type: 'list'
+							choices: [ 'ethernet', 'wifi' ]
+						]
+					}
+					{
+						message: 'Processor'
+						name: 'processorType'
+						type: 'list'
+						choices: [ 'Z7010', 'Z7020' ]
+					}
+				]
+
+			it 'should ignore the grouping and include all the questions', ->
+				questions = utils.flatten(@form)
+				m.chai.expect(questions).to.deep.equal [
+					{
+						message: 'Network Connection'
+						name: 'network'
+						type: 'list'
+						choices: [ 'ethernet', 'wifi' ]
+					}
+					{
+						message: 'Processor'
+						name: 'processorType'
+						type: 'list'
+						choices: [ 'Z7010', 'Z7020' ]
+					}
+				]
+
+		describe 'given a form group that contains a group', ->
+
+			beforeEach ->
+				@form = [
+					{
+						isGroup: true
+						name: 'network'
+						message: 'Network'
+						isCollapsible: true
+						collapsed: false
+						options: [
+							{
+								isGroup: true
+								name: 'network'
+								message: 'Network'
+								isCollapsible: true
+								collapsed: false
+								options: [
+									message: 'Network Connection'
+									name: 'network'
+									type: 'list'
+									choices: [ 'ethernet', 'wifi' ]
+								]
+							}
+							{
+								message: 'Wifi Passphrase'
+								name: 'wifiKey'
+								type: 'text'
+							}
+						]
+					}
+					{
+						message: 'Processor'
+						name: 'processorType'
+						type: 'list'
+						choices: [ 'Z7010', 'Z7020' ]
+					}
+				]
+
+			it 'should deep flatten the group options', ->
+				questions = utils.flatten(@form)
+				m.chai.expect(questions).to.deep.equal [
+					{
+						message: 'Network Connection'
+						name: 'network'
+						type: 'list'
+						choices: [ 'ethernet', 'wifi' ]
+					}
+					{
+						message: 'Wifi Passphrase'
+						name: 'wifiKey'
+						type: 'text'
+					}
+					{
+						message: 'Processor'
+						name: 'processorType'
+						type: 'list'
+						choices: [ 'Z7010', 'Z7020' ]
+					}
+				]
+
 	describe '.parse()', ->
 
 		describe 'given a simple question', ->
@@ -79,3 +184,45 @@ describe 'Utils:', ->
 				it 'should return false if any condition is not met', ->
 					questions = utils.parse(@form)
 					m.chai.expect(questions[0].when(processorType: 'Z7020', hdmi: false)).to.be.false
+
+		describe 'given a form group', ->
+
+			beforeEach ->
+				@form = [
+					{
+						isGroup: true
+						name: 'network'
+						message: 'Network'
+						isCollapsible: true
+						collapsed: false
+						options: [
+							message: 'Network Connection'
+							name: 'network'
+							type: 'list'
+							choices: [ 'ethernet', 'wifi' ]
+						]
+					}
+					{
+						message: 'Processor'
+						name: 'processorType'
+						type: 'list'
+						choices: [ 'Z7010', 'Z7020' ]
+					}
+				]
+
+			it 'should ignore the grouping and include all the questions', ->
+				questions = utils.parse(@form)
+				m.chai.expect(questions).to.deep.equal [
+					{
+						message: 'Network Connection'
+						name: 'network'
+						type: 'list'
+						choices: [ 'ethernet', 'wifi' ]
+					}
+					{
+						message: 'Processor'
+						name: 'processorType'
+						type: 'list'
+						choices: [ 'Z7010', 'Z7020' ]
+					}
+				]

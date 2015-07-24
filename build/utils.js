@@ -28,6 +28,44 @@ _ = require('lodash');
 
 
 /**
+ * @summary Flatten form groups
+ * @function
+ * @protected
+ *
+ * @param {Object[]} form - form description
+ * @returns {Object[]} flattened form description
+ *
+ * @example
+ * questions = utils.flatten [
+ * 	isGroup: true
+ * 	name: 'network'
+ * 	message: 'Network'
+ * 	isCollapsible: true
+ * 	collapsed: false
+ * 	options: [
+ * 		message: 'Network Connection'
+ * 		name: 'network'
+ * 		type: 'list'
+ * 		choices: [ 'ethernet', 'wifi' ]
+ * ,
+ * 	message: 'Processor'
+ * 	name: 'processorType'
+ * 	type: 'list'
+ * 	choices: [ 'Z7010', 'Z7020' ]
+ * ]
+ */
+
+exports.flatten = function(form) {
+  return _.flatten(_.map(form, function(question) {
+    if (question.isGroup) {
+      return exports.flatten(question.options);
+    }
+    return question;
+  }));
+};
+
+
+/**
  * @summary Parse a form definition
  * @function
  * @protected
@@ -50,6 +88,7 @@ _ = require('lodash');
  */
 
 exports.parse = function(form) {
+  form = exports.flatten(form);
   return _.map(form, function(option) {
     var result;
     result = _.cloneDeep(option);
