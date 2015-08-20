@@ -144,26 +144,30 @@ describe 'Utils:', ->
 							processorType: 'Z7010'
 					]
 
-				it 'should return a when function', ->
+				it 'should return a shouldPrompt function', ->
 					questions = utils.parse(@form)
-					m.chai.expect(questions[0].when).to.be.a('function')
+					m.chai.expect(questions[0].shouldPrompt).to.be.a('function')
 
 				it 'should return true if the condition is met', ->
 					questions = utils.parse(@form)
-					m.chai.expect(questions[0].when(processorType: 'Z7010')).to.be.true
+					m.chai.expect(questions[0].shouldPrompt(processorType: 'Z7010')).to.be.true
 
 				it 'should return false if the condition is not met', ->
 					questions = utils.parse(@form)
-					m.chai.expect(questions[0].when(processorType: 'Z7020')).to.be.false
+					m.chai.expect(questions[0].shouldPrompt(processorType: 'Z7020')).to.be.false
 
 				it 'should return false if the property does not exist', ->
 					questions = utils.parse(@form)
-					m.chai.expect(questions[0].when(foo: 'Z7020')).to.be.false
+					m.chai.expect(questions[0].shouldPrompt(foo: 'Z7020')).to.be.false
 
 				it 'should return false if no answer', ->
 					questions = utils.parse(@form)
-					m.chai.expect(questions[0].when()).to.be.false
-					m.chai.expect(questions[0].when({})).to.be.false
+					m.chai.expect(questions[0].shouldPrompt()).to.be.false
+					m.chai.expect(questions[0].shouldPrompt({})).to.be.false
+
+				it 'should not have a when property', ->
+					questions = utils.parse(@form)
+					m.chai.expect(questions[0].when).to.not.exist
 
 			describe 'given a multiple value when', ->
 
@@ -180,11 +184,11 @@ describe 'Utils:', ->
 
 				it 'should return true if all the conditions are met', ->
 					questions = utils.parse(@form)
-					m.chai.expect(questions[0].when(processorType: 'Z7010', hdmi: true)).to.be.true
+					m.chai.expect(questions[0].shouldPrompt(processorType: 'Z7010', hdmi: true)).to.be.true
 
 				it 'should return false if any condition is not met', ->
 					questions = utils.parse(@form)
-					m.chai.expect(questions[0].when(processorType: 'Z7020', hdmi: false)).to.be.false
+					m.chai.expect(questions[0].shouldPrompt(processorType: 'Z7020', hdmi: false)).to.be.false
 
 		describe 'given a form group', ->
 

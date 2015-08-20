@@ -95,9 +95,9 @@ exports.parse = function(form) {
   form = exports.flatten(form);
   return _.map(form, function(option) {
     var result;
-    result = _.cloneDeep(option);
+    result = _.omit(_.cloneDeep(option), 'when');
     if (!_.isEmpty(option.when)) {
-      result.when = function(answers) {
+      result.shouldPrompt = function(answers) {
         if (answers == null) {
           return false;
         }

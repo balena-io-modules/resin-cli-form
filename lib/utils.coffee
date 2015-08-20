@@ -84,12 +84,15 @@ exports.parse = (form) ->
 	form = exports.flatten(form)
 
 	return _.map form, (option) ->
-		result = _.cloneDeep(option)
+
+		# We omit `when` since we internally translate this
+		# into a `shouldPrompt` function instead.
+		result = _.omit(_.cloneDeep(option), 'when')
 
 		# Translate object "when" definitions
 		# to functions we can run and evaluate
 		if not _.isEmpty(option.when)
-			result.when = (answers) ->
+			result.shouldPrompt = (answers) ->
 				return false if not answers?
 				return _.findWhere([ answers ], option.when)?
 
