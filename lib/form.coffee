@@ -59,8 +59,13 @@ exports.run = (form) ->
 	questions = utils.parse(form)
 
 	Promise.reduce questions, (answers, question) ->
-		utils.prompt([ question ]).then (answer) ->
-			return _.assign(answers, answer)
+		if question.type is 'drive'
+			visuals.drive(question.message).then (drive) ->
+				answers[question.name] = drive
+				return answers
+		else
+			utils.prompt([ question ]).then (answer) ->
+				return _.assign(answers, answer)
 	, {}
 
 ###*

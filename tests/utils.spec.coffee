@@ -228,6 +228,23 @@ describe 'Utils:', ->
 					}
 				]
 
+		describe 'given a drive input', ->
+
+			beforeEach ->
+				@form = [
+					message: 'Select a drive'
+					type: 'drive'
+					name: 'drive'
+				]
+
+			it 'should be parsed correctly', ->
+				questions = utils.parse(@form)
+				m.chai.expect(questions).to.deep.equal [
+					message: 'Select a drive'
+					type: 'drive'
+					name: 'drive'
+				]
+
 	describe '.prompt()', ->
 
 		describe 'given a single question form', ->

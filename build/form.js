@@ -67,9 +67,16 @@ exports.run = function(form) {
   var questions;
   questions = utils.parse(form);
   return Promise.reduce(questions, function(answers, question) {
-    return utils.prompt([question]).then(function(answer) {
-      return _.assign(answers, answer);
-    });
+    if (question.type === 'drive') {
+      return visuals.drive(question.message).then(function(drive) {
+        answers[question.name] = drive;
+        return answers;
+      });
+    } else {
+      return utils.prompt([question]).then(function(answer) {
+        return _.assign(answers, answer);
+      });
+    }
   }, {});
 };
 
