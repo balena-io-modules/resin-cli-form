@@ -1,6 +1,7 @@
 m = require('mochainon')
 Promise = require('bluebird')
 inquirer = require('inquirer')
+utils = require('../lib/utils')
 form = require('../lib/form')
 
 describe 'Form:', ->
@@ -8,21 +9,29 @@ describe 'Form:', ->
 	describe '.run()', ->
 
 		beforeEach ->
-			@inquirerPromptStub = m.sinon.stub(inquirer, 'prompt')
-			@inquirerPromptStub.yields({ foo: 'bar' })
+			@utilsPromptStub = m.sinon.stub(utils, 'prompt')
+			@utilsPromptStub.onFirstCall().returns(Promise.resolve(processorType: 'Z7010'))
+			@utilsPromptStub.onSecondCall().returns(Promise.resolve(coprocessorCore: '64'))
 
 		afterEach ->
-			@inquirerPromptStub.restore()
+			@utilsPromptStub.restore()
 
 		it 'should eventually be the result', ->
 			promise = form.run [
-				message: 'Processor'
-				name: 'processorType'
-				type: 'list'
-				choices: [ 'Z7010', 'Z7020' ]
+					message: 'Processor'
+					name: 'processorType'
+					type: 'list'
+					choices: [ 'Z7010', 'Z7020' ]
+				,
+					message: 'Coprocessor cores'
+					name: 'coprocessorCore'
+					type: 'list'
+					choices: [ '16', '64' ]
 			]
 
-			m.chai.expect(promise).to.eventually.become(foo: 'bar')
+			m.chai.expect(promise).to.eventually.become
+				processorType: 'Z7010'
+				coprocessorCore: '64'
 
 	describe '.ask()', ->
 

@@ -29,6 +29,7 @@ THE SOFTWARE.
 Promise = require('bluebird')
 _ = require('lodash')
 inquirer = require('inquirer')
+visuals = require('resin-cli-visuals')
 utils = require('./utils')
 
 ###*
@@ -55,9 +56,12 @@ utils = require('./utils')
 # 	console.log(answers)
 ###
 exports.run = (form) ->
-	Promise.fromNode (callback) ->
-		inquirer.prompt utils.parse(form), (answers) ->
-			return callback(null, answers)
+	questions = utils.parse(form)
+
+	Promise.reduce questions, (answers, question) ->
+		utils.prompt([ question ]).then (answer) ->
+			return _.assign(answers, answer)
+	, {}
 
 ###*
 # @summary Run a single form question

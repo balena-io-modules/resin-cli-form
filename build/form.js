@@ -26,13 +26,15 @@ THE SOFTWARE.
 /**
  * @module form
  */
-var Promise, inquirer, utils, _;
+var Promise, inquirer, utils, visuals, _;
 
 Promise = require('bluebird');
 
 _ = require('lodash');
 
 inquirer = require('inquirer');
+
+visuals = require('resin-cli-visuals');
 
 utils = require('./utils');
 
@@ -62,11 +64,13 @@ utils = require('./utils');
  */
 
 exports.run = function(form) {
-  return Promise.fromNode(function(callback) {
-    return inquirer.prompt(utils.parse(form), function(answers) {
-      return callback(null, answers);
+  var questions;
+  questions = utils.parse(form);
+  return Promise.reduce(questions, function(answers, question) {
+    return utils.prompt([question]).then(function(answer) {
+      return _.assign(answers, answer);
     });
-  });
+  }, {});
 };
 
 
