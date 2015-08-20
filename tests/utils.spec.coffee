@@ -1,4 +1,5 @@
 m = require('mochainon')
+inquirer = require('inquirer')
 utils = require('../lib/utils')
 
 describe 'Utils:', ->
@@ -226,3 +227,52 @@ describe 'Utils:', ->
 						choices: [ 'Z7010', 'Z7020' ]
 					}
 				]
+
+	describe '.prompt()', ->
+
+		describe 'given a single question form', ->
+
+			beforeEach ->
+				@inquirerPromptStub = m.sinon.stub(inquirer, 'prompt')
+				@inquirerPromptStub.yields({ processorType: 'bar' })
+
+			afterEach ->
+				@inquirerPromptStub.restore()
+
+			it 'should eventually be the result', ->
+				promise = utils.prompt [
+					message: 'Processor'
+					name: 'processorType'
+					type: 'list'
+					choices: [ 'Z7010', 'Z7020' ]
+				]
+
+				m.chai.expect(promise).to.eventually.become(processorType: 'bar')
+
+		describe 'given a multiple question form', ->
+
+			beforeEach ->
+				@inquirerPromptStub = m.sinon.stub(inquirer, 'prompt')
+				@inquirerPromptStub.yields
+					processorType: 'Z7010'
+					coprocessorCore: '16'
+
+			afterEach ->
+				@inquirerPromptStub.restore()
+
+			it 'should eventually become the answers', ->
+				promise = utils.prompt [
+						message: 'Processor'
+						name: 'processorType'
+						type: 'list'
+						choices: [ 'Z7010', 'Z7020' ]
+					,
+						message: 'Coprocessor cores'
+						name: 'coprocessorCore'
+						type: 'list'
+						choices: [ '16', '64' ]
+				]
+
+				m.chai.expect(promise).to.eventually.become
+					processorType: 'Z7010'
+					coprocessorCore: '16'

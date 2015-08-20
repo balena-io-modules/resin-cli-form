@@ -22,9 +22,13 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
  */
-var _;
+var Promise, inquirer, _;
+
+Promise = require('bluebird');
 
 _ = require('lodash');
+
+inquirer = require('inquirer');
 
 
 /**
@@ -101,5 +105,39 @@ exports.parse = function(form) {
       };
     }
     return result;
+  });
+};
+
+
+/**
+ * @summary Prompt a questions form
+ * @function
+ * @protected
+ *
+ * @param {Object[]} questions - form questions
+ * @returns {Promise<Object>} answers
+ *
+ * @example
+ * utils.prompt [
+ * 	message: 'Processor'
+ * 	name: 'processorType'
+ * 	type: 'list'
+ * 	choices: [ 'Z7010', 'Z7020' ]
+ * ,
+ * 	message: 'Coprocessor cores'
+ * 	name: 'coprocessorCore'
+ * 	type: 'list'
+ * 	values: [ '16', '64' ]
+ * ]
+ * .then (answers) ->
+ * 	console.log(answers.processorType)
+ * 	console.log(answers.coprocessorCore)
+ */
+
+exports.prompt = function(questions) {
+  return Promise.fromNode(function(callback) {
+    return inquirer.prompt(questions, function(answers) {
+      return callback(null, answers);
+    });
   });
 };
