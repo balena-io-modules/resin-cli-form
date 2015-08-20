@@ -72,6 +72,62 @@ describe 'Form:', ->
 					device: '/dev/disk2'
 					coprocessorCore: '64'
 
+		describe 'given a form with `when` properties', ->
+
+			beforeEach ->
+				@form = [
+						message: 'Network Connection'
+						name: 'network'
+						type: 'list'
+						choices: [ 'ethernet', 'wifi' ]
+					,
+						message: 'Wifi SSID'
+						name: 'wifiSsid'
+						type: 'text'
+						when:
+							network: 'wifi'
+					,
+						message: 'Wifi Passphrase'
+						name: 'wifiKey'
+						type: 'password'
+						when:
+							network: 'wifi'
+				]
+
+			describe 'given network is ethernet', ->
+
+				beforeEach ->
+					@utilsPromptStub = m.sinon.stub(utils, 'prompt')
+					@utilsPromptStub.onFirstCall().returns(Promise.resolve(network: 'ethernet'))
+					@utilsPromptStub.onSecondCall().returns(Promise.resolve(wifiSsid: 'wifinetwork'))
+					@utilsPromptStub.onThirdCall().returns(Promise.resolve(wifiKey: 'wifipassword'))
+
+				afterEach ->
+					@utilsPromptStub.restore()
+
+				it 'should not ask wifi questions', ->
+					promise = form.run([ @form ])
+					m.chai.expect(promise).to.eventually.become
+						network: 'ethernet'
+
+			describe 'given network is wifi', ->
+
+				beforeEach ->
+					@utilsPromptStub = m.sinon.stub(utils, 'prompt')
+					@utilsPromptStub.onFirstCall().returns(Promise.resolve(network: 'wifi'))
+					@utilsPromptStub.onSecondCall().returns(Promise.resolve(wifiSsid: 'wifinetwork'))
+					@utilsPromptStub.onThirdCall().returns(Promise.resolve(wifiKey: 'wifipassword'))
+
+				afterEach ->
+					@utilsPromptStub.restore()
+
+				it 'should ask wifi questions', ->
+					promise = form.run([ @form ])
+					m.chai.expect(promise).to.eventually.become
+						network: 'wifi'
+						wifiSsid: 'wifinetwork'
+						wifiKey: 'wifipassword'
+
 	describe '.ask()', ->
 
 		describe 'given there is an error running the question', ->

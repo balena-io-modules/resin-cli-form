@@ -59,6 +59,15 @@ exports.run = (form) ->
 	questions = utils.parse(form)
 
 	Promise.reduce questions, (answers, question) ->
+
+		# Since we now run `reduce` over the questions and run
+		# inquirer inputs in an isolated way, `when` functions
+		# no longer make sense to inquirer.
+		# Therefore, we implement `when` checking manually
+		# here based on `shouldPrompt`.
+		if question.shouldPrompt? and not question.shouldPrompt(answers)
+			return answers
+
 		if question.type is 'drive'
 			visuals.drive(question.message).then (drive) ->
 				answers[question.name] = drive

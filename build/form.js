@@ -67,6 +67,9 @@ exports.run = function(form) {
   var questions;
   questions = utils.parse(form);
   return Promise.reduce(questions, function(answers, question) {
+    if ((question.shouldPrompt != null) && !question.shouldPrompt(answers)) {
+      return answers;
+    }
     if (question.type === 'drive') {
       return visuals.drive(question.message).then(function(drive) {
         answers[question.name] = drive;
