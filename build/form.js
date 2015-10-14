@@ -101,7 +101,7 @@ exports.run = function(form) {
  * 	console.log(processor)
  */
 
-exports.ask = function(question, callback) {
+exports.ask = function(question) {
   if (question.name == null) {
     question.name = 'question';
   }
