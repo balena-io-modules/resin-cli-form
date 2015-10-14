@@ -36,6 +36,86 @@ describe 'Form:', ->
 					processorType: 'Z7010'
 					coprocessorCore: '64'
 
+			describe 'given an override option', ->
+
+				it 'should override the selected question', ->
+					promise = form.run [
+							message: 'Processor'
+							name: 'processorType'
+							type: 'list'
+							choices: [ 'Z7010', 'Z7020' ]
+						,
+							message: 'Coprocessor cores'
+							name: 'coprocessorCore'
+							type: 'list'
+							choices: [ '16', '64' ]
+					],
+						override:
+							coprocessorCore: '16'
+
+					m.chai.expect(promise).to.eventually.become
+						processorType: 'Z7010'
+						coprocessorCore: '16'
+
+				it 'should be able to override all questions', ->
+					promise = form.run [
+							message: 'Processor'
+							name: 'processorType'
+							type: 'list'
+							choices: [ 'Z7010', 'Z7020' ]
+						,
+							message: 'Coprocessor cores'
+							name: 'coprocessorCore'
+							type: 'list'
+							choices: [ '16', '64' ]
+					],
+						override:
+							processorType: 'Z7020'
+							coprocessorCore: '16'
+
+					m.chai.expect(promise).to.eventually.become
+						processorType: 'Z7020'
+						coprocessorCore: '16'
+
+				it 'should ignore invalid override options', ->
+					promise = form.run [
+							message: 'Processor'
+							name: 'processorType'
+							type: 'list'
+							choices: [ 'Z7010', 'Z7020' ]
+						,
+							message: 'Coprocessor cores'
+							name: 'coprocessorCore'
+							type: 'list'
+							choices: [ '16', '64' ]
+					],
+						override:
+							foo: 'bar'
+
+					m.chai.expect(promise).to.eventually.become
+						processorType: 'Z7010'
+						coprocessorCore: '64'
+
+				it 'should ignore undefined and null options', ->
+					promise = form.run [
+							message: 'Processor'
+							name: 'processorType'
+							type: 'list'
+							choices: [ 'Z7010', 'Z7020' ]
+						,
+							message: 'Coprocessor cores'
+							name: 'coprocessorCore'
+							type: 'list'
+							choices: [ '16', '64' ]
+					],
+						override:
+							processorType: undefined
+							coprocessorCore: null
+
+					m.chai.expect(promise).to.eventually.become
+						processorType: 'Z7010'
+						coprocessorCore: '64'
+
 		describe 'given a form with a drive input', ->
 
 			beforeEach ->
@@ -70,6 +150,30 @@ describe 'Form:', ->
 				m.chai.expect(promise).to.eventually.become
 					processorType: 'Z7010'
 					device: '/dev/disk2'
+					coprocessorCore: '64'
+
+			it 'should be able to override the drive', ->
+				promise = form.run [
+						message: 'Processor'
+						name: 'processorType'
+						type: 'list'
+						choices: [ 'Z7010', 'Z7020' ]
+					,
+						message: 'Select a drive'
+						type: 'drive'
+						name: 'device'
+					,
+						message: 'Coprocessor cores'
+						name: 'coprocessorCore'
+						type: 'list'
+						choices: [ '16', '64' ]
+				],
+					override:
+						device: '/dev/disk5'
+
+				m.chai.expect(promise).to.eventually.become
+					processorType: 'Z7010'
+					device: '/dev/disk5'
 					coprocessorCore: '64'
 
 		describe 'given a form with `when` properties', ->
@@ -107,6 +211,15 @@ describe 'Form:', ->
 
 				it 'should not ask wifi questions', ->
 					promise = form.run([ @form ])
+					m.chai.expect(promise).to.eventually.become
+						network: 'ethernet'
+
+				it 'should ignore wifi overrides', ->
+					promise = form.run [ @form ],
+						override:
+							wifiSsid: 'foo'
+							wifiKey: 'bar'
+
 					m.chai.expect(promise).to.eventually.become
 						network: 'ethernet'
 
