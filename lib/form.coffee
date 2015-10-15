@@ -93,6 +93,6 @@ exports.run = (form) ->
 # .then (processor) ->
 # 	console.log(processor)
 ###
-exports.ask = (question, callback) ->
+exports.ask = (question) ->
 	question.name ?= 'question'
 	exports.run([ question ]).get(question.name)
