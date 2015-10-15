@@ -38,6 +38,9 @@ utils = require('./utils')
 # @public
 #
 # @param {Object[]} form - form description
+# @param {Object} [options={}] - options
+# @param {Object} [options.override] - overrides
+#
 # @returns {Promise<Object>} answers
 #
 # @example
@@ -51,11 +54,17 @@ utils = require('./utils')
 # 	name: 'coprocessorCore'
 # 	type: 'list'
 # 	choices: [ '16', '64' ]
-# ]
+# ],
+#
+# 	# coprocessorCore will always be 64
+# 	# Notice that the question will not be asked at all
+# 	override:
+# 		coprocessorCore: '64'
+#
 # .then (answers) ->
 # 	console.log(answers)
 ###
-exports.run = (form) ->
+exports.run = (form, options = {}) ->
 	questions = utils.parse(form)
 
 	Promise.reduce questions, (answers, question) ->
@@ -66,6 +75,10 @@ exports.run = (form) ->
 		# Therefore, we implement `when` checking manually
 		# here based on `shouldPrompt`.
 		if question.shouldPrompt? and not question.shouldPrompt(answers)
+			return answers
+
+		if _.has(options.override, question.name) and _.get(options.override, question.name)?
+			answers[question.name] = options.override[question.name]
 			return answers
 
 		if question.type is 'drive'

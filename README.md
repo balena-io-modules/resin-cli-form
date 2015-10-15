@@ -27,19 +27,21 @@ Documentation
 
 
 * [form](#module_form)
-  * [.run(form)](#module_form.run) ⇒ <code>Promise.&lt;Object&gt;</code>
+  * [.run(form, [options])](#module_form.run) ⇒ <code>Promise.&lt;Object&gt;</code>
   * [.ask(question)](#module_form.ask) ⇒ <code>Promise.&lt;\*&gt;</code>
 
 <a name="module_form.run"></a>
-### form.run(form) ⇒ <code>Promise.&lt;Object&gt;</code>
+### form.run(form, [options]) ⇒ <code>Promise.&lt;Object&gt;</code>
 **Kind**: static method of <code>[form](#module_form)</code>  
 **Summary**: Run a form description  
 **Returns**: <code>Promise.&lt;Object&gt;</code> - answers  
 **Access:** public  
 
-| Param | Type | Description |
-| --- | --- | --- |
-| form | <code>Array.&lt;Object&gt;</code> | form description |
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| form | <code>Array.&lt;Object&gt;</code> |  | form description |
+| [options] | <code>Object</code> | <code>{}</code> | options |
+| [options.override] | <code>Object</code> |  | overrides |
 
 **Example**  
 ```js
@@ -53,7 +55,13 @@ form.run [
 	name: 'coprocessorCore'
 	type: 'list'
 	choices: [ '16', '64' ]
-]
+],
+
+	# coprocessorCore will always be 64
+	# Notice that the question will not be asked at all
+	override:
+		coprocessorCore: '64'
+
 .then (answers) ->
 	console.log(answers)
 ```
