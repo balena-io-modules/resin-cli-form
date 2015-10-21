@@ -116,6 +116,47 @@ describe 'Form:', ->
 						processorType: 'Z7010'
 						coprocessorCore: '64'
 
+				it 'should reject with the passed error if validate function returns a string', ->
+					promise = form.run [
+						message: 'username'
+						name: 'username'
+						type: 'input'
+						validate: (input) ->
+							if input.length < 3
+								return 'Username too short'
+							return true
+					],
+						override:
+							username: 'fb'
+
+					m.chai.expect(promise).to.be.rejectedWith('Username too short')
+
+				it 'should reject with a default message if validate function returns false', ->
+					promise = form.run [
+						message: 'username'
+						name: 'username'
+						type: 'input'
+						validate: ->
+							return false
+					],
+						override:
+							username: 'fb'
+
+					m.chai.expect(promise).to.be.rejectedWith('fb is not a valid username')
+
+				it 'should fulfil the answer if validate returns true', ->
+					promise = form.run [
+						message: 'username'
+						name: 'username'
+						type: 'input'
+						validate: ->
+							return true
+					],
+						override:
+							username: 'fb'
+
+					m.chai.expect(promise).to.eventually.deep.equal(username: 'fb')
+
 		describe 'given a form with a drive input', ->
 
 			beforeEach ->

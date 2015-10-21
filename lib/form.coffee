@@ -77,8 +77,18 @@ exports.run = (form, options = {}) ->
 		if question.shouldPrompt? and not question.shouldPrompt(answers)
 			return answers
 
-		if _.has(options.override, question.name) and _.get(options.override, question.name)?
-			answers[question.name] = options.override[question.name]
+		override = _.get(options.override, question.name)
+
+		if override?
+			validation = (question.validate or _.constant(true))(override)
+
+			if _.isString(validation)
+				throw new Error(validation)
+
+			if not validation
+				throw new Error("#{override} is not a valid #{question.name}")
+
+			answers[question.name] = override
 			return answers
 
 		if question.type is 'drive'
