@@ -79,11 +79,20 @@ exports.run = function(form, options) {
   }
   questions = utils.parse(form);
   return Promise.reduce(questions, function(answers, question) {
+    var override, validation;
     if ((question.shouldPrompt != null) && !question.shouldPrompt(answers)) {
       return answers;
     }
-    if (_.has(options.override, question.name) && (_.get(options.override, question.name) != null)) {
-      answers[question.name] = options.override[question.name];
+    override = _.get(options.override, question.name);
+    if (override != null) {
+      validation = (question.validate || _.constant(true))(override);
+      if (_.isString(validation)) {
+        throw new Error(validation);
+      }
+      if (!validation) {
+        throw new Error("" + override + " is not a valid " + question.name);
+      }
+      answers[question.name] = override;
       return answers;
     }
     if (question.type === 'drive') {
