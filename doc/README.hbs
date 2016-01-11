@@ -6,6 +6,8 @@ resin-cli-form
 [![Build Status](https://travis-ci.org/resin-io/resin-cli-form.svg?branch=master)](https://travis-ci.org/resin-io/resin-cli-form)
 [![Build status](https://ci.appveyor.com/api/projects/status/hmvcyjfwbxqd1wru?svg=true)](https://ci.appveyor.com/project/jviotti/resin-cli-form)
 
+Join our online chat at [![Gitter chat](https://badges.gitter.im/resin-io/chat.png)](https://gitter.im/resin-io/chat)
+
 Resin.io CLI form interpreter.
 
 Role
