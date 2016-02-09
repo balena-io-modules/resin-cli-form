@@ -190,6 +190,38 @@ describe 'Utils:', ->
 					questions = utils.parse(@form)
 					m.chai.expect(questions[0].shouldPrompt(processorType: 'Z7020', hdmi: false)).to.be.false
 
+			describe 'given a truthy single value when', ->
+
+				beforeEach ->
+					@form = [
+						message: 'Coprocessor cores'
+						name: 'coprocessorCore'
+						type: 'list'
+						choices: [ '16', '64' ]
+						when:
+							processorType: true
+					]
+
+				it 'should return true if the condition value exists', ->
+					questions = utils.parse(@form)
+					m.chai.expect(questions[0].shouldPrompt(processorType: true)).to.be.true
+					m.chai.expect(questions[0].shouldPrompt(processorType: 'Z7010')).to.be.true
+					m.chai.expect(questions[0].shouldPrompt(processorType: 'Z7020')).to.be.true
+
+				it 'should return false if the condition value does not exist', ->
+					questions = utils.parse(@form)
+					m.chai.expect(questions[0].shouldPrompt(foo: 'bar')).to.be.false
+					m.chai.expect(questions[0].shouldPrompt(processorType: undefined)).to.be.false
+					m.chai.expect(questions[0].shouldPrompt(processorType: null)).to.be.false
+
+				it 'should return false if the conditional value is false', ->
+					questions = utils.parse(@form)
+					m.chai.expect(questions[0].shouldPrompt(processorType: false)).to.be.false
+
+				it 'should return false if the conditional value is an empty string', ->
+					questions = utils.parse(@form)
+					m.chai.expect(questions[0].shouldPrompt(processorType: '')).to.be.false
+
 		describe 'given a form group', ->
 
 			beforeEach ->
