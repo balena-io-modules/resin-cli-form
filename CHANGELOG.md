@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [1.4.0] - 2016-02-11
+
+### Changed
+
+- Allow to pass `true` to `when` conditions as an existencial operator.
+
 ## [1.3.3] - 2015-12-04
 
 ### Changed
@@ -49,6 +55,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 - Upgrade `inquirer` to latest version, which includes a fix to the repeating bug.
 
+[1.4.0]: https://github.com/resin-io/resin-cli-form/compare/v1.3.3...v1.4.0
 [1.3.3]: https://github.com/resin-io/resin-cli-form/compare/v1.3.2...v1.3.3
 [1.3.2]: https://github.com/resin-io/resin-cli-form/compare/v1.3.1...v1.3.2
 [1.3.1]: https://github.com/resin-io/resin-cli-form/compare/v1.3.0...v1.3.1
