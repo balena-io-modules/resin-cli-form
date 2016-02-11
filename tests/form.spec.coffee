@@ -9,6 +9,41 @@ describe 'Form:', ->
 
 	describe '.run()', ->
 
+		describe 'given a single text input form', ->
+
+			beforeEach ->
+				@form = [
+					message: 'Foo'
+					name: 'foo'
+					type: 'text'
+				]
+
+			describe 'given the user sends an empty answer', ->
+
+				beforeEach ->
+					@utilsPromptStub = m.sinon.stub(utils, 'prompt')
+					@utilsPromptStub.returns(Promise.resolve(foo: ''))
+
+				afterEach ->
+					@utilsPromptStub.restore()
+
+				it 'should discard the answer', ->
+					promise = form.run(@form)
+					m.chai.expect(promise).to.eventually.become({})
+
+			describe 'given the user sends a blank answer', ->
+
+				beforeEach ->
+					@utilsPromptStub = m.sinon.stub(utils, 'prompt')
+					@utilsPromptStub.returns(Promise.resolve(foo: '   '))
+
+				afterEach ->
+					@utilsPromptStub.restore()
+
+				it 'should discard the answer', ->
+					promise = form.run(@form)
+					m.chai.expect(promise).to.eventually.become({})
+
 		describe 'given a simple form', ->
 
 			beforeEach ->
