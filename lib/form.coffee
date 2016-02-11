@@ -20,6 +20,7 @@ limitations under the License.
 
 Promise = require('bluebird')
 _ = require('lodash')
+_.str = require('underscore.string')
 inquirer = require('inquirer')
 visuals = require('resin-cli-visuals')
 utils = require('./utils')
@@ -89,6 +90,9 @@ exports.run = (form, options = {}) ->
 				return answers
 		else
 			utils.prompt([ question ]).then (answer) ->
+				if _.str.isBlank(answer[question.name])
+					return answers
+
 				return _.assign(answers, answer)
 	, {}
 
