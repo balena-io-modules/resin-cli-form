@@ -86,7 +86,15 @@ exports.parse = (form) ->
 		if not _.isEmpty(option.when)
 			result.shouldPrompt = (answers) ->
 				return false if not answers?
-				return _.findWhere([ answers ], option.when)?
+
+				return _.all _.map option.when, (value, key) ->
+					answer = _.get(answers, key)
+
+					# Evaluate `true` as an existencial operator
+					if value is true and Boolean(answer)
+						return true
+
+					return answer is value
 
 		return result
 

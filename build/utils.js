@@ -93,7 +93,14 @@ exports.parse = function(form) {
         if (answers == null) {
           return false;
         }
-        return _.findWhere([answers], option.when) != null;
+        return _.all(_.map(option.when, function(value, key) {
+          var answer;
+          answer = _.get(answers, key);
+          if (value === true && Boolean(answer)) {
+            return true;
+          }
+          return answer === value;
+        }));
       };
     }
     return result;
