@@ -2,9 +2,9 @@ resin-cli-form
 --------------
 
 [![npm version](https://badge.fury.io/js/resin-cli-form.svg)](http://badge.fury.io/js/resin-cli-form)
-[![dependencies](https://david-dm.org/resin-io/resin-cli-form.png)](https://david-dm.org/resin-io/resin-cli-form.png)
-[![Build Status](https://travis-ci.org/resin-io/resin-cli-form.svg?branch=master)](https://travis-ci.org/resin-io/resin-cli-form)
-[![Build status](https://ci.appveyor.com/api/projects/status/hmvcyjfwbxqd1wru?svg=true)](https://ci.appveyor.com/project/jviotti/resin-cli-form)
+[![dependencies](https://david-dm.org/resin-io-modules/resin-cli-form.png)](https://david-dm.org/resin-io-modules/resin-cli-form.png)
+[![Build Status](https://travis-ci.org/resin-io-modules/resin-cli-form.svg?branch=master)](https://travis-ci.org/resin-io-modules/resin-cli-form)
+[![Build status](https://ci.appveyor.com/api/projects/status/hmvcyjfwbxqd1wru/branch/master?svg=true)](https://ci.appveyor.com/project/resin-io/resin-cli-form/branch/master)
 
 Join our online chat at [![Gitter chat](https://badges.gitter.im/resin-io/chat.png)](https://gitter.im/resin-io/chat)
 
@@ -121,7 +121,7 @@ In this case, the wifi ssid and wiki key will only be asked if the network type 
 Support
 -------
 
-If you're having any problem, please [raise an issue](https://github.com/resin-io/resin-cli-form/issues/new) on GitHub and the Resin.io team will be happy to help.
+If you're having any problem, please [raise an issue](https://github.com/resin-io-modules/resin-cli-form/issues/new) on GitHub and the Resin.io team will be happy to help.
 
 Tests
 -----
@@ -135,8 +135,8 @@ $ gulp test
 Contribute
 ----------
 
-- Issue Tracker: [github.com/resin-io/resin-cli-form/issues](https://github.com/resin-io/resin-cli-form/issues)
-- Source Code: [github.com/resin-io/resin-cli-form](https://github.com/resin-io/resin-cli-form)
+- Issue Tracker: [github.com/resin-io-modules/resin-cli-form/issues](https://github.com/resin-io-modules/resin-cli-form/issues)
+- Source Code: [github.com/resin-io-modules/resin-cli-form](https://github.com/resin-io-modules/resin-cli-form)
 
 Before submitting a PR, please make sure that you include tests, and that [coffeelint](http://www.coffeelint.org/) runs without any warning:
 

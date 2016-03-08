@@ -3,10 +3,10 @@
   "version": "1.4.1",
   "description": "Resin.io CLI form interpreter",
   "main": "build/form.js",
-  "homepage": "https://github.com/resin-io/resin-cli-form",
+  "homepage": "https://github.com/resin-io-modules/resin-cli-form",
   "repository": {
     "type": "git",
-    "url": "git://github.com/resin-io/resin-cli-form.git"
+    "url": "git://github.com/resin-io-modules/resin-cli-form.git"
   },
   "keywords": [
     "resin",
