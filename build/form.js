@@ -18,15 +18,13 @@ limitations under the License.
 /**
  * @module form
  */
-var Promise, inquirer, utils, visuals, _;
+var Promise, utils, visuals, _;
 
 Promise = require('bluebird');
 
 _ = require('lodash');
 
 _.str = require('underscore.string');
-
-inquirer = require('inquirer');
 
 visuals = require('resin-cli-visuals');
 
