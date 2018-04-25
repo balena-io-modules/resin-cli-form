@@ -31,7 +31,7 @@
     "gulp-util": "~3.0.1",
     "jsdoc-to-markdown": "^1.1.1",
     "mocha": "^5.1.1",
-    "mochainon": "^1.0.0"
+    "mochainon": "^2.0.0"
   },
   "dependencies": {
     "bluebird": "^2.9.30",
