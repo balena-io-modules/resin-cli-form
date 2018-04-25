@@ -133,6 +133,6 @@ exports.parse = function(form) {
  * 	console.log(answers.coprocessorCore)
  */
 
-exports.prompt = function(questions) {
+exports.prompt = Promise.method(function(questions) {
   return inquirer.prompt(questions);
-};
+});
