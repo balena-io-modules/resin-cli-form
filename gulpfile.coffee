@@ -1,6 +1,5 @@
 path = require('path')
 gulp = require('gulp')
-mocha = require('gulp-mocha')
 gutil = require('gulp-util')
 coffeelint = require('gulp-coffeelint')
 coffee = require('gulp-coffee')
@@ -18,12 +17,6 @@ gulp.task 'coffee', ->
 		.pipe(coffee(bare: true)).on('error', gutil.log)
 		.pipe(gulp.dest('build/'))
 
-gulp.task 'test', ->
-	gulp.src(OPTIONS.files.tests, read: false)
-		.pipe(mocha({
-			reporter: 'min'
-		}))
-
 gulp.task 'lint', ->
 	gulp.src(OPTIONS.files.coffee)
 		.pipe(coffeelint({
@@ -33,7 +26,6 @@ gulp.task 'lint', ->
 
 gulp.task 'build', [
 	'lint'
-	'test'
 	'coffee'
 ]
 
