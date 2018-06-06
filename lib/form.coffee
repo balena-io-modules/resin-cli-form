@@ -21,7 +21,6 @@ limitations under the License.
 Promise = require('bluebird')
 _ = require('lodash')
 _.str = require('underscore.string')
-inquirer = require('inquirer')
 visuals = require('resin-cli-visuals')
 utils = require('./utils')
 

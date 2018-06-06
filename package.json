@@ -31,11 +31,11 @@
     "gulp-util": "~3.0.1",
     "jsdoc-to-markdown": "^1.1.1",
     "mocha": "^5.1.1",
-    "mochainon": "^1.0.0"
+    "mochainon": "^2.0.0"
   },
   "dependencies": {
     "bluebird": "^2.9.30",
-    "inquirer": "^0.11.0",
+    "inquirer": "^5.2.0",
     "lodash": "^3.9.3",
     "resin-cli-visuals": "^1.2.0",
     "underscore.string": "^3.2.3"

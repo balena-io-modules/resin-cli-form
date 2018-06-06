@@ -344,7 +344,7 @@ describe('Utils:', function() {
     describe('given a single question form', function() {
       beforeEach(function() {
         this.inquirerPromptStub = m.sinon.stub(inquirer, 'prompt');
-        return this.inquirerPromptStub.yields({
+        return this.inquirerPromptStub.resolves({
           processorType: 'bar'
         });
       });
@@ -369,7 +369,7 @@ describe('Utils:', function() {
     return describe('given a multiple question form', function() {
       beforeEach(function() {
         this.inquirerPromptStub = m.sinon.stub(inquirer, 'prompt');
-        return this.inquirerPromptStub.yields({
+        return this.inquirerPromptStub.resolves({
           processorType: 'Z7010',
           coprocessorCore: '16'
         });

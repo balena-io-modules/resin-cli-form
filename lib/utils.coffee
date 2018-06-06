@@ -124,5 +124,6 @@ exports.parse = (form) ->
 ###
 exports.prompt = (questions) ->
 	Promise.fromNode (callback) ->
-		inquirer.prompt questions, (answers) ->
-			return callback(null, answers)
+		inquirer.prompt (questions)
+			.then((answers) -> callback(null, answers))
+			.catch((error) -> callback(error))
