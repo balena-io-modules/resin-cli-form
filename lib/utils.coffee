@@ -123,6 +123,6 @@ exports.parse = (form) ->
 # 	console.log(answers.coprocessorCore)
 ###
 exports.prompt = (questions) ->
-	Promise.fromNode (callback) ->
+	Promise.fromCallback (callback) ->
 		inquirer.prompt questions, (answers) ->
 			return callback(null, answers)
