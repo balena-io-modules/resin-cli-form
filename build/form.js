@@ -18,7 +18,7 @@ limitations under the License.
 /**
  * @module form
  */
-var Promise, inquirer, utils, visuals, _;
+var Promise, _, inquirer, utils, visuals;
 
 Promise = require('bluebird');
 
@@ -82,7 +82,7 @@ exports.run = function(form, options) {
         throw new Error(validation);
       }
       if (!validation) {
-        throw new Error("" + override + " is not a valid " + question.name);
+        throw new Error(override + " is not a valid " + question.name);
       }
       answers[question.name] = override;
       return answers;
