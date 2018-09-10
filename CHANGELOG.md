@@ -5,6 +5,17 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [1.4.1] - 2016-02-11
 
+## v1.4.2 - 2018-09-10
+
+* Switch to coffeescript (non-hyphenated) and update to 1.12 [Pagan Gazzard]
+* Update gulp-coffeelint [Pagan Gazzard]
+* Update gulp [Pagan Gazzard]
+* Update gulp-coffee [Pagan Gazzard]
+* Remove underscore.string [Pagan Gazzard]
+* Update lodash to 4.x [Pagan Gazzard]
+* Chore(package): Update test dependencies [Jonas Hermsmeier]
+* Chore(test): Update Node versions on CI [Jonas Hermsmeier]
+
 ### Changed
 
 - Discard empty string responses from answers object.
