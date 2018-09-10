@@ -24,8 +24,6 @@ Promise = require('bluebird');
 
 _ = require('lodash');
 
-_.str = require('underscore.string');
-
 inquirer = require('inquirer');
 
 visuals = require('resin-cli-visuals');
@@ -96,7 +94,7 @@ exports.run = function(form, options) {
       });
     } else {
       return utils.prompt([question]).then(function(answer) {
-        if (_.str.isBlank(answer[question.name])) {
+        if (_.isEmpty(_.trim(answer[question.name]))) {
           return answers;
         }
         return _.assign(answers, answer);
