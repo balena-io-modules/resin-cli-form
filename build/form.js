@@ -18,13 +18,11 @@ limitations under the License.
 /**
  * @module form
  */
-var Promise, inquirer, utils, visuals, _;
+var Promise, _, inquirer, utils, visuals;
 
 Promise = require('bluebird');
 
 _ = require('lodash');
-
-_.str = require('underscore.string');
 
 inquirer = require('inquirer');
 
@@ -84,7 +82,7 @@ exports.run = function(form, options) {
         throw new Error(validation);
       }
       if (!validation) {
-        throw new Error("" + override + " is not a valid " + question.name);
+        throw new Error(override + " is not a valid " + question.name);
       }
       answers[question.name] = override;
       return answers;
@@ -96,7 +94,7 @@ exports.run = function(form, options) {
       });
     } else {
       return utils.prompt([question]).then(function(answer) {
-        if (_.str.isBlank(answer[question.name])) {
+        if (_.isEmpty(_.trim(answer[question.name]))) {
           return answers;
         }
         return _.assign(answers, answer);
