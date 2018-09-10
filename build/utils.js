@@ -134,9 +134,5 @@ exports.parse = function(form) {
  */
 
 exports.prompt = function(questions) {
-  return Promise.fromCallback(function(callback) {
-    return inquirer.prompt(questions, function(answers) {
-      return callback(null, answers);
-    });
-  });
+  return inquirer.prompt(questions);
 };

@@ -344,9 +344,9 @@ describe('Utils:', function() {
     describe('given a single question form', function() {
       beforeEach(function() {
         this.inquirerPromptStub = m.sinon.stub(inquirer, 'prompt');
-        return this.inquirerPromptStub.yields({
+        return this.inquirerPromptStub.returns(Promise.resolve({
           processorType: 'bar'
-        });
+        }));
       });
       afterEach(function() {
         return this.inquirerPromptStub.restore();
@@ -369,10 +369,10 @@ describe('Utils:', function() {
     return describe('given a multiple question form', function() {
       beforeEach(function() {
         this.inquirerPromptStub = m.sinon.stub(inquirer, 'prompt');
-        return this.inquirerPromptStub.yields({
+        return this.inquirerPromptStub.returns(Promise.resolve({
           processorType: 'Z7010',
           coprocessorCore: '16'
-        });
+        }));
       });
       afterEach(function() {
         return this.inquirerPromptStub.restore();
