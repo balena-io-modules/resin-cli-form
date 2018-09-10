@@ -46,7 +46,7 @@ inquirer = require('inquirer')
 # ]
 ###
 exports.flatten = (form) ->
-	return _.flatten _.map form, (question) ->
+	return _.flatMap form, (question) ->
 		if question.isGroup
 			return exports.flatten(question.options)
 		return question
@@ -87,7 +87,7 @@ exports.parse = (form) ->
 			result.shouldPrompt = (answers) ->
 				return false if not answers?
 
-				return _.all _.map option.when, (value, key) ->
+				return _.every option.when, (value, key) ->
 					answer = _.get(answers, key)
 
 					# Evaluate `true` as an existencial operator

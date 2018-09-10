@@ -52,12 +52,12 @@ inquirer = require('inquirer');
  */
 
 exports.flatten = function(form) {
-  return _.flatten(_.map(form, function(question) {
+  return _.flatMap(form, function(question) {
     if (question.isGroup) {
       return exports.flatten(question.options);
     }
     return question;
-  }));
+  });
 };
 
 
@@ -93,14 +93,14 @@ exports.parse = function(form) {
         if (answers == null) {
           return false;
         }
-        return _.all(_.map(option.when, function(value, key) {
+        return _.every(option.when, function(value, key) {
           var answer;
           answer = _.get(answers, key);
           if (value === true && Boolean(answer)) {
             return true;
           }
           return answer === value;
-        }));
+        });
       };
     }
     return result;
