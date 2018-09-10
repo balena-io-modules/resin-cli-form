@@ -5,6 +5,11 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [1.4.1] - 2016-02-11
 
+## v2.0.0 - 2018-09-10
+
+* Update inquirer to 6.x [Pagan Gazzard]
+* Update bluebird to 3.x [Pagan Gazzard]
+
 ## v1.4.2 - 2018-09-10
 
 * Switch to coffeescript (non-hyphenated) and update to 1.12 [Pagan Gazzard]
