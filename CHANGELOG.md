@@ -5,6 +5,10 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [1.4.1] - 2016-02-11
 
+## v2.0.1 - 2018-09-10
+
+* Example: Add runnable examples [Jonas Hermsmeier]
+
 ## v2.0.0 - 2018-09-10
 
 * Update inquirer to 6.x [Pagan Gazzard]
