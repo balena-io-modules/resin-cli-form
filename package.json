@@ -1,6 +1,6 @@
 {
   "name": "resin-cli-form",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "Resin.io CLI form interpreter",
   "main": "build/form.js",
   "homepage": "https://github.com/resin-io-modules/resin-cli-form",

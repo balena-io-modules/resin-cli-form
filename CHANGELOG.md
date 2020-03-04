@@ -5,6 +5,11 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [1.4.1] - 2016-02-11
 
+## 2.0.2 - 2020-03-04
+
+* Update dependencies [Pagan Gazzard]
+* Remove build output [Pagan Gazzard]
+
 ## v2.0.1 - 2018-09-10
 
 * Example: Add runnable examples [Jonas Hermsmeier]
