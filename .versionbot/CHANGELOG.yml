@@ -1,0 +1,145 @@
+- commits:
+    - subject: Replace travis & appveyor with flowzone
+      hash: d7b4e5463e0c2cea03294c498dd90f8a02f3259d
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Thodoris Greasidis
+    - subject: Update resin-cli-visuals to v2.0.0
+      hash: dc45eead70c592313a764d7c4629343aa1df4a43
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Thodoris Greasidis
+    - subject: Drop supoport for node < 18
+      hash: eaab2b7a4997aaf56b3e01b88ee64ed42665081f
+      body: ""
+      footer:
+        Change-type: major
+        change-type: major
+      author: Thodoris Greasidis
+  version: 3.0.0
+  title: ""
+  date: 2024-04-08T18:03:21.491Z
+- version: 2.0.2
+  date: 2020-03-04T17:08:26Z
+  commits:
+    - hash: 9f3541f8e5ff2114fdf5613c59f5d8991979d312
+      author: Pagan Gazzard
+      footers:
+        change-type: patch
+      subject: Remove build output
+      body: ""
+    - hash: 265343e7cec3e77cebfd07740d245c63fdd90564
+      author: Pagan Gazzard
+      subject: Add linting
+      body: ""
+    - hash: 7b4d462d4cf1084bb4ea1a45b929e1d13800023c
+      author: Pagan Gazzard
+      footers:
+        change-type: patch
+      subject: Update dependencies
+      body: ""
+- version: 2.0.1
+  date: 2019-01-12T23:37:47Z
+  commits:
+    - hash: c0689aae5d6a6ccef95ca7b623192b20d90da7ee
+      author: Jonas Hermsmeier
+      footers:
+        change-type: patch
+        signed-off-by: Jonas Hermsmeier <jhermsmeier@gmail.com>
+      subject: "example: Add runnable examples"
+      body: This adds local runnable examples
+- version: 2.0.0
+  date: 2018-09-10T16:50:01Z
+  commits:
+    - hash: c8c65fac1dc4e879e5da61e0cc20b5ff346163e3
+      author: Pagan Gazzard
+      footers:
+        change-type: major
+        signed-off-by: Pagan Gazzard <page@resin.io>
+      subject: Update bluebird to 3.x
+      body: ""
+    - hash: ac15cc8b103f4e6f1a51385a27daa7ca8f62395b
+      author: Pagan Gazzard
+      footers:
+        change-type: major
+        signed-off-by: Pagan Gazzard <page@resin.io>
+      subject: Update inquirer to 6.x
+      body: ""
+- version: 1.4.2
+  date: 2018-09-10T16:35:08Z
+  commits:
+    - hash: df3eeb8dd04e56849703498d51ca099279122d2c
+      author: Pagan Gazzard
+      footers:
+        change-type: patch
+        signed-off-by: Pagan Gazzard <page@resin.io>
+      subject: Update lodash to 4.x
+      body: ""
+    - hash: bbfc6a36f5ac16ff8eeac7ad96629411c732f03c
+      author: Pagan Gazzard
+      footers:
+        change-type: patch
+        signed-off-by: Pagan Gazzard <page@resin.io>
+      subject: Remove underscore.string
+      body: ""
+    - hash: 068bd2e5c97bc0a47e2207fbed7fdfd50639164a
+      author: Pagan Gazzard
+      footers:
+        change-type: patch
+        signed-off-by: Pagan Gazzard <page@resin.io>
+      subject: Update gulp-coffee
+      body: ""
+    - hash: e422c0f8139dd84078090aa7a4c800bbda93576e
+      author: Pagan Gazzard
+      footers:
+        change-type: patch
+        signed-off-by: Pagan Gazzard <page@resin.io>
+      subject: Update gulp
+      body: ""
+    - hash: 80343dc4b6e1c2132c84447e2305906f0e026a1b
+      author: Pagan Gazzard
+      footers:
+        change-type: patch
+        signed-off-by: Pagan Gazzard <page@resin.io>
+      subject: Update gulp-coffeelint
+      body: ""
+    - hash: db16cc8b2b948c0fca2c250353e0de7ee3979a7d
+      author: Pagan Gazzard
+      footers:
+        change-type: patch
+        signed-off-by: Pagan Gazzard <page@resin.io>
+      subject: Switch to coffeescript (non-hyphenated) and update to 1.12
+      body: ""
+    - hash: e108544949d66b95f28a18c107952325922b6472
+      author: Jonas Hermsmeier
+      footers:
+        change-type: patch
+      subject: "chore(test): Update Node versions on CI"
+      body: ""
+    - hash: a4b78a42a20a2c2b4773ecc66386eaf8a76348a1
+      author: Jonas Hermsmeier
+      footers:
+        change-type: patch
+      subject: "chore(package): Update test dependencies"
+      body: >-
+        This updates the tests to avoid a dependency causing deprecation
+        warnings
+
+        with Node 10. Updating the dependency in question (`gulp-mocha`) doesn't
+
+        have the desired effect, as support for on-the-fly compiled CoffeeScript
+
+        was dropped.
+
+        Due to this the tests are converted to plain old JavaScript, and run
+        with
+
+        `mocha` directly, while the `test` gulp task is removed.
+    - hash: 0de29fc4f71f5fd8a0d484e6b1492f013e1993ef
+      author: Jonas Hermsmeier
+      subject: "fix(test): Update test command on Appveyor"
+      body: ""

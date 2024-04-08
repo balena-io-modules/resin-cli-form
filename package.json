@@ -1,6 +1,6 @@
 {
   "name": "resin-cli-form",
-  "version": "2.0.2",
+  "version": "3.0.0",
   "description": "Resin.io CLI form interpreter",
   "main": "build/form.js",
   "homepage": "https://github.com/resin-io-modules/resin-cli-form",
@@ -25,7 +25,7 @@
   },
   "author": "Juan Cruz Viotti <juan@resin.io>",
   "license": "Apache-2.0",
-    "engines": {
+  "engines": {
     "node": ">=18.0"
   },
   "devDependencies": {
@@ -44,5 +44,8 @@
     "inquirer": "^7.0.6",
     "lodash": "^4.17.15",
     "resin-cli-visuals": "^2.0.0"
+  },
+  "versionist": {
+    "publishedAt": "2024-04-08T18:03:21.553Z"
   }
 }

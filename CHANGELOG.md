@@ -5,6 +5,13 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [1.4.1] - 2016-02-11
 
+# v3.0.0
+## (2024-04-08)
+
+* Replace travis & appveyor with flowzone [Thodoris Greasidis]
+* Update resin-cli-visuals to v2.0.0 [Thodoris Greasidis]
+* Drop supoport for node < 18 [Thodoris Greasidis]
+
 ## 2.0.2 - 2020-03-04
 
 * Update dependencies [Pagan Gazzard]
