@@ -25,6 +25,9 @@
   },
   "author": "Juan Cruz Viotti <juan@resin.io>",
   "license": "Apache-2.0",
+    "engines": {
+    "node": ">=18.0"
+  },
   "devDependencies": {
     "coffeescript": "^1.12.7",
     "gulp": "^4.0.2",
@@ -40,6 +43,6 @@
     "bluebird": "^3.7.2",
     "inquirer": "^7.0.6",
     "lodash": "^4.17.15",
-    "resin-cli-visuals": "^1.4.7"
+    "resin-cli-visuals": "^2.0.0"
   }
 }
