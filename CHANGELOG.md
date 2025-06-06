@@ -5,6 +5,12 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [1.4.1] - 2016-02-11
 
+# v4.0.0
+## (2025-06-06)
+
+* Bump resin-cli-visuals to v3.0.0 [Otavio Jacobi]
+* Drop support for node 18 [Otavio Jacobi]
+
 # v3.0.0
 ## (2024-04-08)
 

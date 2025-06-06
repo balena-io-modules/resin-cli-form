@@ -1,4 +1,23 @@
 - commits:
+    - subject: Bump resin-cli-visuals to v3.0.0
+      hash: 290678632f404da0a842569bed69db7c1fa8515d
+      body: |
+        Update resin-cli-visuals from v2.0.0 to v3.0.0
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Otavio Jacobi
+    - subject: Drop support for node 18
+      hash: ee7fc23667874073f8200c3c4f2b2039b4254248
+      body: ""
+      footer:
+        Change-type: major
+        change-type: major
+      author: Otavio Jacobi
+  version: 4.0.0
+  title: ""
+  date: 2025-06-06T23:35:23.829Z
+- commits:
     - subject: Replace travis & appveyor with flowzone
       hash: d7b4e5463e0c2cea03294c498dd90f8a02f3259d
       body: ""
