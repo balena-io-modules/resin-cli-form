@@ -5,6 +5,11 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [1.4.1] - 2016-02-11
 
+# v4.0.1
+## (2025-09-17)
+
+* Update `resin-cli-visuals` [Matthew Yarmolinsky]
+
 # v4.0.0
 ## (2025-06-06)
 

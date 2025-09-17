@@ -1,4 +1,15 @@
 - commits:
+    - subject: Update `resin-cli-visuals`
+      hash: 22a7da6add65372b1810811e347a515d81e05bd9
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Matthew Yarmolinsky
+  version: 4.0.1
+  title: ""
+  date: 2025-09-17T09:29:41.001Z
+- commits:
     - subject: Bump resin-cli-visuals to v3.0.0
       hash: 290678632f404da0a842569bed69db7c1fa8515d
       body: |
