@@ -43,7 +43,7 @@
     "bluebird": "^3.7.2",
     "inquirer": "^7.0.6",
     "lodash": "^4.17.15",
-    "resin-cli-visuals": "^3.0.0"
+    "resin-cli-visuals": "^3.0.1"
   },
   "versionist": {
     "publishedAt": "2025-06-06T23:35:23.893Z"
