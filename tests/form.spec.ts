@@ -4,8 +4,10 @@ import visuals from 'resin-cli-visuals';
 import { expect, use as chaiUse } from 'chai';
 import chaiAsPromised from 'chai-as-promised';
 chaiUse(chaiAsPromised);
-var form = require('../build/form');
-var utils = require('../build/utils');
+/* eslint-disable @typescript-eslint/no-require-imports  */
+const form = require('../build/form');
+const utils = require('../build/utils');
+/* eslint-enable @typescript-eslint/no-require-imports  */
 
 describe('Form:', function () {
 	describe('.run()', function () {
