@@ -18,10 +18,19 @@ limitations under the License.
  * @module form
  */
 
-const Promise = require('bluebird');
-const _ = require('lodash');
-const visuals = require('resin-cli-visuals');
-const utils = require('./utils');
+import Promise from 'bluebird';
+import * as _ from 'lodash';
+import * as visuals from 'resin-cli-visuals';
+import * as utils from './utils';
+import type { Validate } from './utils';
+export type { TypeOrPromiseLike, Validate } from './utils';
+
+export interface RunQuestion<K = string> {
+	message: string;
+	name: K;
+	type?: string;
+	validate?: Validate;
+}
 
 /**
  * @summary Run a form description
@@ -55,55 +64,79 @@ const utils = require('./utils');
  * .then (answers) ->
  * 	console.log(answers)
  */
-exports.run = function(form, options) {
-	if (options == null) { options = {}; }
+export const run = function <
+	K extends string,
+	Override extends Record<string, unknown> | object | undefined = undefined,
+>(
+	form: Array<RunQuestion<K>>,
+	options?: { override?: Override },
+): Promise<
+	undefined extends Override
+		? Record<K, unknown>
+		: Record<K, unknown> & Override
+> {
+	options ??= {};
 	const questions = utils.parse(form);
 
-	return Promise.reduce(questions, function(answers, question) {
-
-		// Since we now run `reduce` over the questions and run
-		// inquirer inputs in an isolated way, `when` functions
-		// no longer make sense to inquirer.
-		// Therefore, we implement `when` checking manually
-		// here based on `shouldPrompt`.
-		if ((question.shouldPrompt != null) && !question.shouldPrompt(answers)) {
-			return answers;
-		}
-
-		const override = _.get(options.override, question.name);
-
-		if (override != null) {
-			const validation = (question.validate || _.constant(true))(override);
-
-			if (_.isString(validation)) {
-				throw new Error(validation);
-			}
-
-			if (!validation) {
-				throw new Error(`${override} is not a valid ${question.name}`);
-			}
-
-			answers[question.name] = override;
-			return answers;
-		}
-
-		if (question.type === 'drive') {
-			return visuals.drive(question.message).then(function(drive) {
-				answers[question.name] = drive;
+	return Promise.reduce(
+		questions,
+		function (answers, question) {
+			// Since we now run `reduce` over the questions and run
+			// inquirer inputs in an isolated way, `when` functions
+			// no longer make sense to inquirer.
+			// Therefore, we implement `when` checking manually
+			// here based on `shouldPrompt`.
+			if (question.shouldPrompt != null && !question.shouldPrompt(answers)) {
 				return answers;
-			});
-		} else {
-			return utils.prompt([ question ]).then(function(answer) {
-				if (_.isEmpty(_.trim(answer[question.name]))) {
-					return answers;
+			}
+
+			const override = _.get(options.override, question.name);
+
+			if (override != null) {
+				const validation = (question.validate ?? _.constant(true))(override);
+
+				if (_.isString(validation)) {
+					throw new Error(validation);
 				}
 
-				return _.assign(answers, answer);
-			});
-		}
-	}
-	, {});
+				if (!validation) {
+					throw new Error(`${override} is not a valid ${question.name}`);
+				}
+
+				answers[question.name] = override;
+				return answers;
+			}
+
+			if (question.type === 'drive') {
+				return visuals.drive(question.message).then(function (drive) {
+					answers[question.name] = drive;
+					return answers;
+				});
+			} else {
+				return utils.prompt([question]).then(function (answer) {
+					if (_.isEmpty(_.trim(answer[question.name]))) {
+						return answers;
+					}
+
+					return _.assign(answers, answer);
+				});
+			}
+		},
+		{} as Record<string, unknown>,
+	) as Promise<Record<K, unknown> & Override>;
 };
+
+export interface AskOptions<T> {
+	message: string;
+	type?: string;
+	name?: string;
+	default?: T;
+	choices?: Array<{
+		name: string;
+		value: T;
+	}>;
+	validate?: Validate;
+}
 
 /**
  * @summary Run a single form question
@@ -121,7 +154,10 @@ exports.run = function(form, options) {
  * .then (processor) ->
  * 	console.log(processor)
  */
-exports.ask = function(question) {
-	if (question.name == null) { question.name = 'question'; }
-	return exports.run([ question ]).get(question.name);
+export const ask = function <T = string>(question: AskOptions<T>): Promise<T> {
+	question.name ??= 'question';
+	// TODO: TS should be able to infer that name is now set
+	return run([
+		question as typeof question & Required<Pick<typeof question, 'name'>>,
+	]).get(question.name) as Promise<T>;
 };

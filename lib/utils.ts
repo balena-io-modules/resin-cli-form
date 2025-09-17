@@ -14,9 +14,34 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-const Promise = require('bluebird');
-const _ = require('lodash');
-const inquirer = require('inquirer');
+import Promise from 'bluebird';
+import * as _ from 'lodash';
+import inquirer from 'inquirer';
+
+export type TypeOrPromiseLike<T> = T | PromiseLike<T>;
+
+export type Validate = (
+	input: any,
+) => TypeOrPromiseLike<boolean | string | undefined>;
+
+export interface Options<T> {
+	isGroup?: boolean;
+	message: string;
+	type?: string;
+	name: string;
+	default?: T;
+	when?: Record<string, number | string | boolean>;
+	choices?: Array<{
+		name: string;
+		value: T;
+	}>;
+	options?: Array<Options<unknown>>;
+	validate?: Validate;
+}
+
+export interface ParsedAskOptions extends Options<unknown> {
+	shouldPrompt?: (answers: Record<string, unknown>) => boolean;
+}
 
 /**
  * @summary Flatten form groups
@@ -45,12 +70,15 @@ const inquirer = require('inquirer');
  * 	choices: [ 'Z7010', 'Z7020' ]
  * ]
  */
-exports.flatten = form => _.flatMap(form, function(question) {
-    if (question.isGroup) {
-        return exports.flatten(question.options);
-    }
-    return question;
-});
+export const flatten = (
+	form: Array<Options<unknown>>,
+): Array<Options<unknown>> =>
+	_.flatMap(form, function (question) {
+		if (question.isGroup) {
+			return flatten(question.options ?? []);
+		}
+		return question;
+	});
 
 /**
  * @summary Parse a form definition
@@ -73,26 +101,29 @@ exports.flatten = form => _.flatMap(form, function(question) {
  * 	values: [ '16', '64' ]
  * ]
  */
-exports.parse = function(form) {
-	form = exports.flatten(form);
+export const parse = function (
+	form: Array<Options<unknown>>,
+): ParsedAskOptions[] {
+	form = flatten(form);
 
-	return _.map(form, function(option) {
-
+	return _.map(form, function (option) {
 		// We omit `when` since we internally translate this
 		// into a `shouldPrompt` function instead.
-		const result = _.omit(_.cloneDeep(option), 'when');
+		const { when, ...result } = _.cloneDeep(option) as ParsedAskOptions;
 
 		// Translate object "when" definitions
 		// to functions we can run and evaluate
-		if (!_.isEmpty(option.when)) {
-			result.shouldPrompt = function(answers) {
-				if ((answers == null)) { return false; }
+		if (!_.isEmpty(when)) {
+			result.shouldPrompt = function (answers) {
+				if (answers == null) {
+					return false;
+				}
 
-				return _.every(option.when, function(value, key) {
+				return _.every(when, function (value, key) {
 					const answer = _.get(answers, key);
 
 					// Evaluate `true` as an existencial operator
-					if ((value === true) && Boolean(answer)) {
+					if (value === true && Boolean(answer)) {
 						return true;
 					}
 
@@ -129,4 +160,6 @@ exports.parse = function(form) {
  * 	console.log(answers.processorType)
  * 	console.log(answers.coprocessorCore)
  */
-exports.prompt = Promise.method(questions => inquirer.prompt(questions));
+export const prompt = Promise.method((questions: Array<Options<unknown>>) =>
+	inquirer.prompt(questions),
+);

@@ -1,11 +1,11 @@
 import Promise from 'bluebird';
 import * as sinon from 'sinon';
-import visuals from 'resin-cli-visuals';
+import * as visuals from 'resin-cli-visuals';
 import { expect, use as chaiUse } from 'chai';
 import chaiAsPromised from 'chai-as-promised';
 chaiUse(chaiAsPromised);
-import form from '../build/form';
-import utils from '../build/utils';
+import * as form from '../build/form';
+import * as utils from '../build/utils';
 
 describe('Form:', function () {
 	describe('.run()', function () {
