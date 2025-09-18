@@ -2,6 +2,7 @@
   "name": "resin-cli-form",
   "version": "4.0.1",
   "description": "Resin.io CLI form interpreter",
+  "type": "commonjs",
   "main": "build/form.js",
   "homepage": "https://github.com/resin-io-modules/resin-cli-form",
   "repository": {
@@ -18,7 +19,7 @@
   },
   "scripts": {
     "pretest": "npm run lint",
-    "test": "gulp build && mocha tests",
+    "test": "npm run prepare && mocha -r ts-node/register/transpile-only --reporter spec tests/**/*.spec.ts",
     "lint": "npx resin-lint lib",
     "prepare": "gulp build",
     "readme": "jsdoc2md --template doc/README.hbs build/form.js > README.md"
@@ -29,21 +30,26 @@
     "node": ">=20.0"
   },
   "devDependencies": {
+    "chai": "^4.3.6",
+    "chai-as-promised": "^7.1.1",
     "coffeescript": "^1.12.7",
     "gulp": "^4.0.2",
     "gulp-coffee": "^2.3.5",
     "gulp-coffeelint": "^0.6.0",
     "gulp-util": "~3.0.1",
     "jsdoc-to-markdown": "^5.0.3",
-    "mocha": "^5.1.1",
-    "mochainon": "^1.0.0",
-    "resin-lint": "^3.3.1"
+    "mocha": "^11.0.0",
+    "resin-lint": "^3.3.1",
+    "sinon": "^19.0.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.9.2"
   },
   "dependencies": {
     "bluebird": "^3.7.2",
     "inquirer": "^7.0.6",
     "lodash": "^4.17.15",
-    "resin-cli-visuals": "^3.0.1"
+    "resin-cli-visuals": "^3.0.1",
+    "tslib": "^2.8.1"
   },
   "versionist": {
     "publishedAt": "2025-09-17T09:29:41.044Z"
