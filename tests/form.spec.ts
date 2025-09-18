@@ -1,4 +1,3 @@
-import Promise from 'bluebird';
 import * as sinon from 'sinon';
 import * as visuals from 'resin-cli-visuals';
 import { expect, use as chaiUse } from 'chai';
