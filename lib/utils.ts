@@ -14,7 +14,6 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-import Promise from 'bluebird';
 import * as _ from 'lodash';
 import inquirer from 'inquirer';
 
@@ -160,6 +159,5 @@ export const parse = function (
  * 	console.log(answers.processorType)
  * 	console.log(answers.coprocessorCore)
  */
-export const prompt = Promise.method((questions: Array<AskOptions<unknown>>) =>
-	inquirer.prompt(questions),
-);
+export const prompt = async (questions: Array<AskOptions<unknown>>) =>
+	await inquirer.prompt(questions);

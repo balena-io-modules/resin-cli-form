@@ -18,7 +18,6 @@ limitations under the License.
  * @module form
  */
 
-import Promise from 'bluebird';
 import * as _ from 'lodash';
 import visuals from 'resin-cli-visuals';
 import * as utils from './utils';
@@ -57,59 +56,54 @@ export type { TypeOrPromiseLike, Validate, AskOptions } from './utils';
  * .then (answers) ->
  * 	console.log(answers)
  */
-export const run = function (
+export const run = async function (
 	form: Array<AskOptions<unknown>>,
 	options?: { override?: object },
 ) {
 	options ??= {};
 	const questions = utils.parse(form);
 
-	return Promise.reduce(
-		questions,
-		function (answers, question) {
-			// Since we now run `reduce` over the questions and run
-			// inquirer inputs in an isolated way, `when` functions
-			// no longer make sense to inquirer.
-			// Therefore, we implement `when` checking manually
-			// here based on `shouldPrompt`.
-			if (question.shouldPrompt != null && !question.shouldPrompt(answers)) {
-				return answers;
+	const answers = {} as Record<string, unknown>;
+	for (const question of questions) {
+		// Since we now run `reduce` over the questions and run
+		// inquirer inputs in an isolated way, `when` functions
+		// no longer make sense to inquirer.
+		// Therefore, we implement `when` checking manually
+		// here based on `shouldPrompt`.
+		if (question.shouldPrompt != null && !question.shouldPrompt(answers)) {
+			continue;
+		}
+
+		const override = _.get(options.override, question.name);
+
+		if (override != null) {
+			const validation = (question.validate ?? _.constant(true))(override);
+
+			if (_.isString(validation)) {
+				throw new Error(validation);
 			}
 
-			const override = _.get(options.override, question.name);
-
-			if (override != null) {
-				const validation = (question.validate ?? _.constant(true))(override);
-
-				if (_.isString(validation)) {
-					throw new Error(validation);
-				}
-
-				if (!validation) {
-					throw new Error(`${override} is not a valid ${question.name}`);
-				}
-
-				answers[question.name] = override;
-				return answers;
+			if (!validation) {
+				throw new Error(`${override} is not a valid ${question.name}`);
 			}
 
-			if (question.type === 'drive') {
-				return visuals.drive(question.message).then(function (drive) {
-					answers[question.name] = drive;
-					return answers;
-				});
-			} else {
-				return utils.prompt([question]).then(function (answer) {
-					if (_.isEmpty(_.trim(answer[question.name]))) {
-						return answers;
-					}
+			answers[question.name] = override;
+			continue;
+		}
 
-					return _.assign(answers, answer);
-				});
+		if (question.type === 'drive') {
+			const drive = await visuals.drive(question.message);
+			answers[question.name] = drive;
+		} else {
+			const answer = await utils.prompt([question]);
+			if (_.isEmpty(_.trim(answer[question.name]))) {
+				continue;
 			}
-		},
-		{} as Record<string, unknown>,
-	);
+
+			_.assign(answers, answer);
+		}
+	}
+	return answers;
 };
 
 /**
@@ -128,7 +122,8 @@ export const run = function (
  * .then (processor) ->
  * 	console.log(processor)
  */
-export const ask = function <T = string>(question: AskOptions<T>) {
+export const ask = async function <T = string>(question: AskOptions<T>) {
 	question.name ??= 'question';
-	return run([question]).get(question.name);
+	const answers = await run([question]);
+	return answers[question.name];
 };
