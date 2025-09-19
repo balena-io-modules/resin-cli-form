@@ -5,6 +5,11 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [1.4.1] - 2016-02-11
 
+# v4.0.2
+## (2025-09-19)
+
+* Convert tests to TypeScript and drop mochainon [Thodoris Greasidis]
+
 # v4.0.1
 ## (2025-09-17)
 

@@ -1,6 +1,6 @@
 {
   "name": "resin-cli-form",
-  "version": "4.0.1",
+  "version": "4.0.2",
   "description": "Resin.io CLI form interpreter",
   "type": "commonjs",
   "main": "build/form.js",
@@ -52,6 +52,6 @@
     "tslib": "^2.8.1"
   },
   "versionist": {
-    "publishedAt": "2025-09-17T09:29:41.044Z"
+    "publishedAt": "2025-09-19T12:57:11.804Z"
   }
 }

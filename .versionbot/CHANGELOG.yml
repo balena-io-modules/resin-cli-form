@@ -1,4 +1,15 @@
 - commits:
+    - subject: Convert tests to TypeScript and drop mochainon
+      hash: 0241d239bcc073259c62ab8f526186cf590831bd
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Thodoris Greasidis
+  version: 4.0.2
+  title: ""
+  date: 2025-09-19T12:57:11.764Z
+- commits:
     - subject: Update `resin-cli-visuals`
       hash: 22a7da6add65372b1810811e347a515d81e05bd9
       body: ""
