@@ -1,0 +1,4 @@
+type: 'node'
+upstream:
+  - repo: 'resin-cli-visuals'
+    url: 'https://github.com/balena-io-modules/resin-cli-visuals'
