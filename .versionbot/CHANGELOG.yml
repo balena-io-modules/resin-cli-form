@@ -1,4 +1,96 @@
 - commits:
+    - subject: Update resin-cli-visuals from 3.0.1 to 4.0.1
+      hash: 9a9cfb5480ef87b570596b3f6fc2858d73e2600f
+      body: |
+        Update resin-cli-visuals from 3.0.1 to 4.0.0
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Thodoris Greasidis
+      nested:
+        - commits:
+            - subject: "horizontal: Use nullish check to fallback from the alias to the prop
+                name"
+              hash: 0fc20f2553150d1b83f76ddcde0614fda445723c
+              body: ""
+              footer:
+                Change-type: patch
+                change-type: patch
+              author: Thodoris Greasidis
+            - subject: "vertical: Explicitly convert values to string"
+              hash: c6b77a30febea6832b7418f5fa2969e5f6041bc9
+              body: ""
+              footer:
+                Change-type: patch
+                change-type: patch
+              author: Thodoris Greasidis
+            - subject: Replace the SpinnerPromise class with a createSpinnerPromise factory
+                function
+              hash: 8128eafec8c871bef3f4d8c7ec32cc45863d2fd6
+              body: ""
+              footer:
+                Change-type: major
+                change-type: major
+              author: Thodoris Greasidis
+            - subject: Switch to async await and drop Bluebird
+              hash: 44eb1cd2f2491f29a47fdcaf127087165a11732b
+              body: ""
+              footer:
+                Change-type: major
+                change-type: major
+              author: Thodoris Greasidis
+            - subject: Switch target to es2018
+              hash: ffee5bae321f4c0a89beb5d51fec3273388d81d6
+              body: ""
+              footer:
+                Change-type: major
+                change-type: major
+              author: Thodoris Greasidis
+            - subject: Convert files to use es modules imports & exports
+              hash: 96536195b63518450d8fd32faabbd40257ab5c5e
+              body: ""
+              footer:
+                Change-type: major
+                change-type: major
+              author: Thodoris Greasidis
+            - subject: Convert to TypeScript & lint
+              hash: 1dc295e50a95b98a73ef5ffe2fd733cec4076316
+              body: ""
+              footer:
+                Change-type: patch
+                change-type: patch
+              author: Thodoris Greasidis
+          version: resin-cli-visuals-4.0.0
+          title: ""
+          date: 2025-09-18T11:54:36.947Z
+    - subject: Switch to async await and drop Bluebird
+      hash: 849804d16b76d3ce7ad191f65858799705bccbab
+      body: ""
+      footer:
+        Change-type: major
+        change-type: major
+      author: Thodoris Greasidis
+      nested: []
+    - subject: Switch target to es2018
+      hash: 406a2ef35aba390c24bc873c27ce7d0843ba893f
+      body: ""
+      footer:
+        Change-type: major
+        change-type: major
+      author: Thodoris Greasidis
+      nested: []
+    - subject: Convert to TypeScript es module exports
+      hash: c01fde1759bdb05b58cf335ae77c215411de453c
+      body: ""
+      footer:
+        Change-type: major
+        change-type: major
+      author: Thodoris Greasidis
+      nested: []
+  version: 5.0.0
+  title: ""
+  date: 2025-09-21T20:52:19.425Z
+- commits:
     - subject: Convert tests to TypeScript and drop mochainon
       hash: 0241d239bcc073259c62ab8f526186cf590831bd
       body: ""
