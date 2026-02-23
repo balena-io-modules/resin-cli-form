@@ -5,6 +5,10 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [1.4.1] - 2016-02-11
 
+## 5.0.1 - 2026-02-23
+
+* Add id-token: write permission for NPM OIDC publishing [Kyle Harding]
+
 ## 5.0.0 - 2025-09-21
 
 

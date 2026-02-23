@@ -1,4 +1,18 @@
 - commits:
+    - subject: "Add id-token: write permission for NPM OIDC publishing"
+      hash: 83b9929a4f0189d2d7cdfd1e72c1bfb0f4079226
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+        Signed-off-by: Kyle Harding <kyle@balena.io>
+        signed-off-by: Kyle Harding <kyle@balena.io>
+      author: Kyle Harding
+      nested: []
+  version: 5.0.1
+  title: ""
+  date: 2026-02-23T17:45:12.123Z
+- commits:
     - subject: Update resin-cli-visuals from 3.0.1 to 4.0.1
       hash: 9a9cfb5480ef87b570596b3f6fc2858d73e2600f
       body: |
